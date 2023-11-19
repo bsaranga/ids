@@ -15,7 +15,8 @@ internal static class HostingExtensions
             })
             .AddInMemoryIdentityResources(Config.IdentityResources)
             .AddInMemoryApiScopes(Config.ApiScopes)
-            .AddInMemoryClients(Config.Clients);
+            .AddInMemoryClients(Config.Clients)
+            .AddTestUsers(TestUsers.Users);
 
         return builder.Build();
     }
@@ -33,7 +34,6 @@ internal static class HostingExtensions
         app.UseRouting();
             
         app.UseIdentityServer();
-        
         app.UseAuthorization();
         app.MapRazorPages().RequireAuthorization();
 
