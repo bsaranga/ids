@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,10 @@ builder.Services.AddAuthentication(options =>
         options.Scope.Clear();
         options.Scope.Add("openid");
         options.Scope.Add("profile");
+        options.Scope.Add("verification");
+        options.Scope.Add("designation");
+        options.ClaimActions.MapJsonKey("email_verified", "email_verified");
+        options.ClaimActions.MapJsonKey("designation", "designation");
         options.GetClaimsFromUserInfoEndpoint = true; // adds the user claims to the token
 
         options.SaveTokens = true;
