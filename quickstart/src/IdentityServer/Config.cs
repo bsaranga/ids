@@ -54,12 +54,14 @@ public static class Config
                 AllowedGrantTypes = GrantTypes.Code,
                 RedirectUris = { "https://localhost:5002/signin-oidc" },
                 PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
+                AllowOfflineAccess = true,
                 AllowedScopes = new List<string>()
                 {
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile,
                     "verification",
-                    "designation"
+                    "designation",
+                    "api1"
                 }
             }
         };
