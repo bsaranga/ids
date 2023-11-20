@@ -1,4 +1,5 @@
-﻿using Duende.IdentityServer.Models;
+﻿using Duende.IdentityServer;
+using Duende.IdentityServer.Models;
 
 namespace IdentityServer;
 
@@ -12,11 +13,11 @@ public static class Config
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
-        new ApiScope[]
+        new[]
             { new ApiScope("api1", "MyAPI") };
 
     public static IEnumerable<Client> Clients =>
-        new Client[]
+        new[]
         {
             new Client
             {
@@ -27,6 +28,19 @@ public static class Config
                     new Secret("secret".Sha256())
                 },
                 AllowedScopes = { "api1" }
+            },
+            new Client
+            {
+                ClientId = "web",
+                ClientSecrets = { new Secret("secret".Sha256()) },
+                AllowedGrantTypes = GrantTypes.Code,
+                RedirectUris = { "https://localhost:5002/signin-oidc" },
+                PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
+                AllowedScopes = new List<string>()
+                {
+                    IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Profile
+                }
             }
         };
 }
