@@ -13,4 +13,60 @@ function log() {
     });
 }
 
-console.log("Helllo worlld...");
+// Checks if user is logged in or not
+
+let userClaims = null;
+
+(async function () {
+    var req = new Request("/bff/user", {
+        headers: new Headers({
+            "X-CSRF": "1",
+        }),
+    });
+
+    try {
+        var resp = await fetch(req);
+        if (resp.ok) {
+            userClaims = await resp.json();
+
+            log("user logged in", userClaims);
+        } else if (resp.status === 401) {
+            log("user not logged in");
+        }
+    } catch (e) {
+        log("error checking user status");
+    }
+})();
+
+// Event handlers
+
+document.getElementById("login").addEventListener("click", login, false);
+document.getElementById("local").addEventListener("click", localApi, false);
+document.getElementById("remote").addEventListener("click", remoteApi, false);
+document.getElementById("logout").addEventListener("click", logout, false);
+
+
+// Callbacks
+
+function login() {
+    window.location = "/bff/login";
+}
+
+function logout() {
+    if (userClaims) {
+        var logoutUrl = userClaims.find(
+            (claim) => claim.type === "bff:logout_url"
+        ).value;
+        window.location = logoutUrl;
+    } else {
+        window.location = "/bff/logout";
+    }
+}
+
+async function localApi() {
+    console.log("calling local api");
+}
+
+async function remoteApi() {
+    console.log("calling remote api");
+}
