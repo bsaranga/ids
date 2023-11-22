@@ -12,3 +12,5 @@ function log() {
         }
     });
 }
+
+console.log("Helllo worlld...");

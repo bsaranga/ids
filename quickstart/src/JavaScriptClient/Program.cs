@@ -14,11 +14,11 @@ builder.Services.AddRazorPages();
 JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
 builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = "Cookies";
-    options.DefaultChallengeScheme = "oidc";
-    options.DefaultSignOutScheme = "oidc";
-})
+    {
+        options.DefaultScheme = "Cookies";
+        options.DefaultChallengeScheme = "oidc";
+        options.DefaultSignOutScheme = "oidc";
+    })
     .AddCookie("Cookies")
     .AddOpenIdConnect("oidc", options =>
     {
@@ -45,6 +45,7 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
+app.UseBff();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
