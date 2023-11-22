@@ -65,8 +65,44 @@ function logout() {
 
 async function localApi() {
     console.log("calling local api");
+
+    var req = new Request("/local/identity", {
+        headers: new Headers({
+            "X-CSRF": "1",
+        }),
+    });
+
+    try {
+        var resp = await fetch(req);
+
+        let data;
+        if (resp.ok) {
+            data = await resp.json();
+        }
+        log("Local API Result: " + resp.status, data);
+    } catch (e) {
+        log("error calling local API");
+    }
 }
 
 async function remoteApi() {
     console.log("calling remote api");
+
+    var req = new Request("/remote/api/identity", {
+        headers: new Headers({
+            "X-CSRF": "1",
+        }),
+    });
+
+    try {
+        var resp = await fetch(req);
+
+        let data;
+        if (resp.ok) {
+            data = await resp.json();
+        }
+        log("Remote API Result: " + resp.status, data);
+    } catch (e) {
+        log("error calling remote API");
+    }
 }
