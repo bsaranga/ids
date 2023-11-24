@@ -26,7 +26,10 @@ try
     {
         Log.Information("Seeding database...");
         SeedData.EnsureSeedData(app);
-        Log.Information("Done seeding database. Exiting.");
+        Log.Information("Done seeding database.");
+        Log.Information("Initializing database...");
+        SeedData.InitializeDatabase(app);
+        Log.Information("Done initializing database. Exiting...");
         return;
     }
 
