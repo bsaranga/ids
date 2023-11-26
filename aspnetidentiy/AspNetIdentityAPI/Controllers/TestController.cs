@@ -7,13 +7,13 @@ namespace AspNetIdentityAPI.Controllers
     public class TestController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Test()
+        public async Task<IActionResult> Test()
         {
-            return Ok(new
+            return await Task.FromResult(Ok(new
             {
                 Status = "Works",
                 DateTime = DateTime.UtcNow
-            });
+            }));
         }
     }
 }
