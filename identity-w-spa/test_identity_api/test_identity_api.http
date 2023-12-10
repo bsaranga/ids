@@ -1,6 +1,0 @@
-@test_identity_api_HostAddress = http://localhost:5000
-
-GET {{test_identity_api_HostAddress}}/api/Test
-Accept: application/json
-
-###
