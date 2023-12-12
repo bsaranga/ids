@@ -1,8 +1,6 @@
 
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
 
 namespace identityapi
 {
@@ -15,7 +13,7 @@ namespace identityapi
             // Add services to the container.
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseInMemoryDatabase("AppDb");
+                options.UseNpgsql("ConnectionString");
                 options.EnableDetailedErrors();
             });
 
