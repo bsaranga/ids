@@ -10,10 +10,13 @@ namespace identityapi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            string? connectionString = builder.Configuration.GetConnectionString("IdentityDb");
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseNpgsql("ConnectionString");
+                if (connectionString != null)
+                    options.UseNpgsql(connectionString);
+
                 options.EnableDetailedErrors();
             });
 
@@ -28,7 +31,6 @@ namespace identityapi
                             .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
