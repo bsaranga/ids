@@ -24,7 +24,8 @@ namespace identityapi
 
             builder.Services.ConfigureApplicationCookie(cfg =>
             {
-                cfg.Cookie.SameSite = SameSiteMode.Strict;
+                cfg.Cookie.Domain = "http://127.0.0.1:5173";
+                cfg.Cookie.SameSite = SameSiteMode.None;
             });
 
             builder.Services.AddIdentityApiEndpoints<IdentityUser>()
@@ -42,6 +43,14 @@ namespace identityapi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors(configurePolicy =>
+            {
+                configurePolicy.WithOrigins("http://localhost:5173", "http://127.0.0.1:5173")
+                               .AllowAnyMethod()
+                               .AllowAnyHeader()
+                               .AllowCredentials();
+            });
 
             app.UseAuthorization();
 
