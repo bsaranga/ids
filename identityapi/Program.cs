@@ -22,12 +22,6 @@ namespace identityapi
 
             builder.Services.AddAuthorization();
 
-            builder.Services.ConfigureApplicationCookie(cfg =>
-            {
-                cfg.Cookie.SameSite = SameSiteMode.Strict;
-                cfg.Cookie.HttpOnly = true;
-            });
-
             builder.Services.AddIdentityApiEndpoints<IdentityUser>()
                             .AddEntityFrameworkStores<ApplicationDbContext>();
 
